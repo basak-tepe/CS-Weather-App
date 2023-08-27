@@ -48,6 +48,7 @@ namespace CSWeatherApp {
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            getWeather();
 
         }
 
@@ -59,15 +60,27 @@ namespace CSWeatherApp {
 
             //form a web client
 
-            using (WebClient web = new WebClient()) {
+            using (WebClient web = new WebClient())
+            {
 
-                string url = string.Format("https://api.openweathermap.org/data/2.5/weather?q={0}&appid={1}",TBCity.Text, APIKey);
+                string url = string.Format("https://api.openweathermap.org/data/2.5/weather?q={0}&appid={1}", TBCity.Text, APIKey);
                 var json = web.DownloadString(url);
 
                 //deserialize
                 WeatherInformation.root info = JsonConvert.DeserializeObject<WeatherInformation.root>(json);
-            }
 
+
+                //update labels
+
+                weatherIcon.ImageLocation = "https://api.openweathermap.org/img/w/" + info.weather[0].icon + ".png";
+                conditionLabel.Text = info.weather[0].main;
+                detailsLabel.Text = info.weather[0].description;
+                sunsetLabel.Text = info.sys.sunset.ToString();
+                sunriseLabel.Text = info.sys.sunrise.ToString();
+                windLabel.Text = info.wind.speed.ToString();
+                pressureLabel.Text = info.main.pressure.ToString();
+
+            }
         }
     }
 }
