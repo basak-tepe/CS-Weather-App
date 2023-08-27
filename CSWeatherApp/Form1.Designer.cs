@@ -65,6 +65,8 @@
             // 
             // btnSearch
             // 
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnSearch.Location = new Point(559, 127);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(94, 29);
@@ -150,6 +152,7 @@
             // 
             // weatherIcon
             // 
+            weatherIcon.BackColor = Color.Transparent;
             weatherIcon.Location = new Point(491, 349);
             weatherIcon.Name = "weatherIcon";
             weatherIcon.Size = new Size(125, 62);

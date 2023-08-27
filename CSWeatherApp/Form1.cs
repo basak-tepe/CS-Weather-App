@@ -2,7 +2,8 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Security.Policy;
 
-namespace CSWeatherApp { 
+namespace CSWeatherApp
+{
 
     public partial class condition : Form
     {
@@ -75,12 +76,19 @@ namespace CSWeatherApp {
                 weatherIcon.ImageLocation = "https://api.openweathermap.org/img/w/" + info.weather[0].icon + ".png";
                 conditionLabel.Text = info.weather[0].main;
                 detailsLabel.Text = info.weather[0].description;
-                sunsetLabel.Text = info.sys.sunset.ToString();
-                sunriseLabel.Text = info.sys.sunrise.ToString();
+                sunsetLabel.Text = convertDateTime(info.sys.sunset).ToShortTimeString();
+                sunriseLabel.Text = convertDateTime(info.sys.sunrise).ToShortTimeString();
                 windLabel.Text = info.wind.speed.ToString();
                 pressureLabel.Text = info.main.pressure.ToString();
 
             }
+        }
+
+        DateTime convertDateTime(long sec)
+        {
+            DateTime day = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc).ToLocalTime();
+            day = day.AddSeconds(sec).ToLocalTime();
+            return day;
         }
     }
 }
